@@ -1,0 +1,17 @@
+{
+  "name": "dbug",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "author": "Yves Bode <ynrbode@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "commitizen": "^4.2.2",
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}
