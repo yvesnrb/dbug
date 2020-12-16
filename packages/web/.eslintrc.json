@@ -18,14 +18,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "react-hooks",
-    "prettier"
-  ],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
   "rules": {
     "prettier/prettier": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
@@ -39,6 +36,16 @@
       {
         "ts": "never",
         "tsx": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**",
+          "src/stories/**",
+          "src/**/stories.tsx"
+        ]
       }
     ]
   },
