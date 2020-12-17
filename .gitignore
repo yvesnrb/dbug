@@ -1,4 +1,5 @@
 node_modules
 
 packages/web/.eslintcache
+packages/web/storybook_dist
 packages/server/.eslintcache
