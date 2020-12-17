@@ -2,6 +2,7 @@ import React, { ReactHTMLElement } from 'react';
 
 export interface Props extends ReactHTMLElement<HTMLInputElement> {
   name: string;
+  label?: string;
 }
 
 const Input: React.FC<Props> = props => {

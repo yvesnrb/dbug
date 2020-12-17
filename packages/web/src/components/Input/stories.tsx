@@ -47,4 +47,5 @@ const Template: Story<InputProps> = args => <Input {...args} />;
 export const Default = Template.bind({});
 Template.args = {
   name: 'testInput',
+  label: 'This is the label',
 };
