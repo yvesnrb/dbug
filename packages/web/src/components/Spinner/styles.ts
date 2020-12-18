@@ -8,12 +8,12 @@ interface Props extends SVGProps<SVGElement> {
 
 const sizeVariations = {
   small: css`
-    width: 18px;
-    height: 18px;
+    width: 1.8rem;
+    height: 1.8rem;
   `,
   large: css`
-    width: 24px;
-    height: 24px;
+    width: 2.4rem;
+    height: 2.4rem;
   `,
 };
 
