@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { SVGAttributes } from 'react';
 import { Container } from './styles';
 
-export interface Props {
+export interface Props extends SVGAttributes<SVGElement> {
   /**
     colorscheme of this spinner
   */
@@ -13,7 +13,7 @@ export interface Props {
 }
 
 const Spinner: React.FC<Props> = props => {
-  const { color, small = false } = props;
+  const { color, small = false, ...rest } = props;
 
   return (
     <Container
@@ -22,6 +22,7 @@ const Spinner: React.FC<Props> = props => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
+      {...rest}
     >
       <path
         id="petal1"
