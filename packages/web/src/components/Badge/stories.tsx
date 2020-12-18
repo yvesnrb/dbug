@@ -22,14 +22,14 @@ export const DarkColor = Template.bind({});
 DarkColor.args = {
   color: '#000',
   textDark: false,
-  children: <p>im a badge</p>,
+  children: 'im a badge',
 };
 
 export const LightColor = Template.bind({});
 LightColor.args = {
   color: '#fff',
   textDark: true,
-  children: <p>im a badge</p>,
+  children: 'im a badge',
 };
 
 export const Small = Template.bind({});
@@ -37,15 +37,15 @@ Small.args = {
   color: '#fff',
   textDark: true,
   size: 'small',
-  children: <p>im a badge</p>,
+  children: 'im a badge',
 };
 
 export const Large = Template.bind({});
-Small.args = {
+Large.args = {
   color: '#fff',
   textDark: true,
   size: 'large',
-  children: <p>im a badge</p>,
+  children: 'im a badge',
 };
 
 export const Disabled = Template.bind({});
@@ -54,5 +54,5 @@ Disabled.args = {
   textDark: true,
   size: 'small',
   disabled: true,
-  children: <p>im a badge</p>,
+  children: 'im a badge',
 };
