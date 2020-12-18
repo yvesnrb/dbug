@@ -21,14 +21,7 @@ export default {
         onSubmit={values => console.table(values)}
         validationSchema={formSchema}
       >
-        <Form
-          style={{
-            height: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <Form>
           <ThisStory />
           <button style={{ marginLeft: '10px' }} type="submit">
             submit test form
@@ -37,6 +30,9 @@ export default {
       </Formik>
     ),
   ],
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     name: {
       control: { type: null },

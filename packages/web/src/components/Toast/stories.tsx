@@ -6,20 +6,9 @@ import Toast, { Props as ToastProps } from './index';
 export default {
   title: 'Toast',
   component: Toast,
-  decorators: [
-    (ThisStory: React.FC) => (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <ThisStory />
-      </div>
-    ),
-  ],
+  parameters: {
+    layout: 'centered',
+  },
 } as Meta;
 
 const Template: Story<ToastProps> = args => <Toast {...args} />;

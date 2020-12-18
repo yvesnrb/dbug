@@ -6,6 +6,9 @@ import MainNav, { Props as MainNavProps } from './index';
 export default {
   title: 'MainNav',
   component: MainNav,
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story<MainNavProps> = args => <MainNav {...args} />;

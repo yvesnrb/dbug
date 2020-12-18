@@ -6,20 +6,9 @@ import Spinner, { Props as SpinnerProps } from './index';
 export default {
   title: 'Spinner',
   component: Spinner,
-  decorators: [
-    (ThisStory: React.FC) => (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <ThisStory />
-      </div>
-    ),
-  ],
+  parameters: {
+    layout: 'centered',
+  },
 } as Meta;
 
 const Template: Story<SpinnerProps> = args => <Spinner {...args} />;

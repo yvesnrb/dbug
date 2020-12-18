@@ -6,20 +6,9 @@ import Button, { Props as ButtonProps } from './index';
 export default {
   title: 'Button',
   component: Button,
-  decorators: [
-    (ThisStory: React.FC) => (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <ThisStory />
-      </div>
-    ),
-  ],
+  parameters: {
+    layout: 'centered',
+  },
 } as Meta;
 
 const Template: Story<ButtonProps> = args => <Button {...args} />;

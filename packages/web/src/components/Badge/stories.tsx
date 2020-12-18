@@ -6,20 +6,9 @@ import Badge, { Props as BadgeProps } from './index';
 export default {
   title: 'Badge',
   component: Badge,
-  decorators: [
-    (ThisStory: React.FC) => (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <ThisStory />
-      </div>
-    ),
-  ],
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     color: {
       control: { type: 'color' },

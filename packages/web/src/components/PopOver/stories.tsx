@@ -6,20 +6,9 @@ import PopOver, { Props as PopOverProps } from './index';
 export default {
   title: 'PopOver',
   component: PopOver,
-  decorators: [
-    (ThisStory: React.FC) => (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <ThisStory />
-      </div>
-    ),
-  ],
+  parameters: {
+    layout: 'centered',
+  },
 } as Meta;
 
 const Template: Story<PopOverProps> = args => <PopOver {...args} />;
