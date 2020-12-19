@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
+import { Container } from './styles';
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLSpanElement> {
   /**
     size of this badge
   */
@@ -20,19 +21,30 @@ export interface Props {
   /**
     contents of this badge
   */
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const Badge: React.FC<Props> = props => {
   const {
-    // size = 'large',
-    // disabled = false,
-    // color = '#000',
-    // textDark = false,
+    size = 'large',
+    disabled = false,
+    color = '#000',
+    textDark = false,
     children,
+    ...rest
   } = props;
 
-  return <span>{children}</span>;
+  return (
+    <Container
+      $size={size}
+      $disabled={disabled}
+      $color={color}
+      $textDark={textDark}
+      {...rest}
+    >
+      {children}
+    </Container>
+  );
 };
 
 export default Badge;
