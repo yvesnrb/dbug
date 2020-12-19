@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
+import { Container } from './styles';
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   /**
     coloscheme of this popover
   */
@@ -12,11 +13,18 @@ export interface Props {
   /**
     all children of this popover will render it when hovered
   */
-  children: ReactElement;
+  children: ReactNode;
 }
 
-const PopOver: React.FC<Props> = () => {
-  return <p>PopOver</p>;
+const PopOver: React.FC<Props> = props => {
+  const { type, content, children, ...rest } = props;
+
+  return (
+    <Container $type={type} {...rest}>
+      {children}
+      <span>{content}</span>
+    </Container>
+  );
 };
 
 export default PopOver;
