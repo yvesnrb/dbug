@@ -13,4 +13,10 @@ export default {
   buttonSmallFont: '700 1.6rem Roboto',
   helpFont: '400 1rem Roboto',
   helpLargeFont: '400 1.2rem Roboto',
+  smallBreakpoint: '576px',
+  mediumBreakpoint: '768px',
+  largeBreakpoint: '992px',
+  xLargeBreakpoint: '1200px',
+  xxLargeBreakpoint: '1400px',
+  siteWidth: '1290px',
 };
