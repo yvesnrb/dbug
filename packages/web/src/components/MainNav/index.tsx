@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
+import { Link } from 'react-router-dom';
+import { FiChevronsLeft, FiPower, FiSettings } from 'react-icons/fi';
+import { Container } from './styles';
+import logoImg from '../../assets/logo-light.svg';
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   /*
     shows the main navigation icons of the bar
   */
@@ -15,9 +19,40 @@ export interface Props {
   noBackground?: boolean;
 }
 
-const MainNav: React.FC<Props> = () => {
-  // const { icons = false, returnHref = null, noBackground = false } = props;
-  return <p>MainNav</p>;
+const MainNav: React.FC<Props> = props => {
+  const {
+    icons = false,
+    returnHref = null,
+    noBackground = false,
+    ...rest
+  } = props;
+
+  return (
+    <Container
+      $icons={icons}
+      $returnHtref={returnHref}
+      $noBackground={noBackground}
+      {...rest}
+    >
+      <span className="content">
+        <img src={logoImg} alt="Dbug Logo" />
+
+        <span className="controls">
+          <Link to="/settings" className="settings">
+            <FiSettings />
+          </Link>
+
+          <Link to="/signout" className="power">
+            <FiPower />
+          </Link>
+
+          <Link to={returnHref || '#'} className="back">
+            <FiChevronsLeft />
+          </Link>
+        </span>
+      </span>
+    </Container>
+  );
 };
 
 export default MainNav;
