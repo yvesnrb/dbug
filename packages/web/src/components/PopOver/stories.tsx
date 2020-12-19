@@ -13,9 +13,16 @@ export default {
 
 const Template: Story<PopOverProps> = args => <PopOver {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Success = Template.bind({});
+Success.args = {
   type: 'success',
   content: 'Lorem ipsum',
-  children: <p>hover me</p>,
+  children: 'hover me',
+};
+
+export const Danger = Template.bind({});
+Danger.args = {
+  type: 'danger',
+  content: 'Lorem ipsum',
+  children: 'hover me',
 };
