@@ -21,9 +21,6 @@ export default {
       >
         <Form>
           <ThisStory />
-          <button style={{ marginLeft: '10px' }} type="submit">
-            submit test form
-          </button>
         </Form>
       </Formik>
     ),
@@ -41,7 +38,8 @@ export default {
 const Template: Story<InputProps> = args => <Input {...args} />;
 
 export const Default = Template.bind({});
-Template.args = {
+Default.args = {
   name: 'testInput',
   label: 'This is the label',
+  placeholder: 'this is the placeholder',
 };
