@@ -1,10 +1,10 @@
 import express from 'express';
+import routes from './routes';
 
 const app = express();
 
-app.get('/', (_request, response) => {
-  return response.json({ message: 'Hello from Digital Ocean CI solution!' });
-});
+app.use(express.json());
+app.use(routes);
 
 app.listen(process.env.APP_PORT, () => {
   // eslint-disable-next-line no-console
