@@ -15,6 +15,9 @@ app.use(
   // that hacked async error handling into express why.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (err: Error, _request: Request, response: Response, _next: NextFunction) => {
+    // eslint-disable-next-line no-console
+    console.log(err);
+
     if (err instanceof AppError)
       return response.status(err.statusCode).json({ message: err.message });
 
