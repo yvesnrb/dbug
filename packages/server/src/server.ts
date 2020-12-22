@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import AppError from './errors/app-error';
 import routes from './routes';
+import 'reflect-metadata';
 import './database';
 
 const app = express();
@@ -14,8 +15,6 @@ app.use(
   // that hacked async error handling into express why.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (err: Error, _request: Request, response: Response, _next: NextFunction) => {
-    console.log(err);
-
     if (err instanceof AppError)
       return response.status(err.statusCode).json({ message: err.message });
 
