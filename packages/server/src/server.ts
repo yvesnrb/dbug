@@ -1,12 +1,19 @@
 import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 import AppError from './errors/app-error';
 import routes from './routes';
 import 'reflect-metadata';
 import './database';
 
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN,
+  optionsSuccessStatus: 200,
+};
+
 const app = express();
 
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(routes);
 
