@@ -1,15 +1,18 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { GlobalStyle } from './globalStyle';
 import theme from './appTheme';
+import Routes from './routes';
 
 const App: React.FC = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <h1>Hello from dbug!</h1>
-        <p>Hello from Digital Ocean CI solution!</p>
+        <Router>
+          <Routes />
+        </Router>
       </ThemeProvider>
     </>
   );
