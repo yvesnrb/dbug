@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Redirect, Route as BaseRoute, RouteProps } from 'react-router-dom';
-// import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 interface Props extends RouteProps {
   isPrivate?: boolean;
@@ -9,18 +9,17 @@ interface Props extends RouteProps {
 
 const Route: React.FC<Props> = props => {
   const { isPrivate = false, component: Component, ...rest } = props;
-  // const {
-  //   data: { token },
-  // } = useAuth();
-  const token = null;
+  const {
+    data: { jwt },
+  } = useAuth();
 
   const render = useCallback(
     routeProps => {
-      if (!token && isPrivate) return <Redirect to="/" />;
-      if (token && !isPrivate) return <Redirect to="/dashboard" />;
+      if (!jwt && isPrivate) return <Redirect to="/" />;
+      if (jwt && !isPrivate) return <Redirect to="/dashboard" />;
       return <Component {...routeProps} />;
     },
-    [isPrivate, token, Component],
+    [isPrivate, jwt, Component],
   );
 
   return <BaseRoute render={render} {...rest} />;
