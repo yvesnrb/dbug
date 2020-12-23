@@ -8,7 +8,7 @@ import MainNav from '../../components/MainNav';
 const SignIn: React.FC = () => {
   return (
     <>
-      <MainNav noBackground />
+      <MainNav />
 
       <Container>
         <div id="left">

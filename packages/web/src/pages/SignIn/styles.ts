@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
-  height: 100vh;
+  height: calc(100vh - 8.3rem);
 
   #left {
     background: ${props => props.theme.secondary};
@@ -30,7 +30,7 @@ export const Container = styled.div`
       justify-content: center;
       align-items: start;
       width: 645px;
-      padding: 0 8rem 0 2rem;
+      padding: 2rem 8rem 2rem 2rem;
     }
   }
 
@@ -44,7 +44,7 @@ export const Container = styled.div`
       justify-content: center;
       align-items: flex-end;
       width: 645px;
-      padding: 0 2rem 0 8rem;
+      padding: 2rem 2rem 2rem 8rem;
 
       img {
         width: 100%;
@@ -56,7 +56,7 @@ export const Container = styled.div`
 
   @media only screen and (max-width: ${props => props.theme.mediumBreakpoint}) {
     grid-template-columns: 100%;
-    height: initial;
+    height: 100vh;
 
     #left {
       padding: 5rem 0;
@@ -75,12 +75,19 @@ export const Container = styled.div`
     #right {
       padding: 5rem 0;
       justify-content: center;
+      align-items: center;
 
       #content {
         max-width: 100vw;
         padding: 2rem 2rem;
         align-items: center;
       }
+    }
+  }
+
+  @media only screen and (max-width: ${props => props.theme.smallBreakpoint}) {
+    #right {
+      padding-bottom: 8.3rem;
     }
   }
 `;
