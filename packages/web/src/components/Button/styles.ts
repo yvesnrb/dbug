@@ -98,3 +98,8 @@ export const StyledLink = styled(Link)`
   ${baseStyle}
   text-decoration: none;
 `;
+
+export const StyledAnchor = styled.a`
+  ${baseStyle}
+  text-decoration: none;
+`;
