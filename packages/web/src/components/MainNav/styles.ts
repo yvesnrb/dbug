@@ -35,10 +35,9 @@ const containerVariations = {
 };
 
 export const Container = styled.div<Props>`
-  background: ${props => transparentize(0.1, props.theme.secondary)};
-  backdrop-filter: blur(20px);
-  position: sticky;
-  width: 100vw;
+  background: ${props => props.theme.secondary};
+  position: relative;
+  margin-bottom: -8.3rem;
 
   img {
     width: 8.9rem;
@@ -79,21 +78,12 @@ export const Container = styled.div<Props>`
   ${props => (props.$noBackground ? containerVariations.noBackground : null)}
 
   @media only screen and (max-width: ${props => props.theme.smallBreakpoint}) {
+    background: ${props => transparentize(0.1, props.theme.secondary)};
+    backdrop-filter: blur(20px);
+    margin-bottom: 0;
     position: fixed;
+    width: 100vw;
     bottom: 0;
     left: 0;
-
-    img {
-      display: none;
-    }
-
-    .content {
-      justify-content: center;
-    }
-
-    ${props =>
-      !props.$icons && !props.$returnHtref
-        ? containerVariations.hideBar
-        : null};
   }
 `;
