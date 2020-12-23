@@ -36,8 +36,7 @@ const containerVariations = {
 
 export const Container = styled.div<Props>`
   background: ${props => props.theme.secondary};
-  position: relative;
-  margin-bottom: -8.3rem;
+  position: initial;
 
   img {
     width: 8.9rem;
