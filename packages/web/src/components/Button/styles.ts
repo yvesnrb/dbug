@@ -47,9 +47,11 @@ const buttonVariations = {
     }
   `,
 
-  noSpinner: css`
+  spinner: css`
+    pointer-events: none;
+
     .spinner {
-      opacity: 0;
+      opacity: 1;
     }
   `,
 };
@@ -75,6 +77,7 @@ export const baseStyle = css<Props>`
   }
 
   .spinner {
+    opacity: 0;
     position: absolute;
     top: calc(50% - 1.2rem);
     left: calc(50% - 1.2rem);
@@ -86,7 +89,7 @@ export const baseStyle = css<Props>`
       : buttonVariations.secondary}
   ${props => (props.$small ? buttonVariations.small : null)}
   ${props => (props.$loading ? buttonVariations.noContent : null)}
-  ${props => (props.$loading ? null : buttonVariations.noSpinner)}
+  ${props => (props.$loading ? buttonVariations.spinner : null)}
   ${props => (props.disabled ? buttonVariations.disabled : null)}
 `;
 
