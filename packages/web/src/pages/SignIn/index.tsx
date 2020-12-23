@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FiGithub } from 'react-icons/fi';
 import { AnchorButton } from '../../components/Button';
 import { Container } from './styles';
+import { useAuth } from '../../context/AuthContext';
 import remoteIdeationImg from '../../assets/remote-ideation.svg';
 import MainNav from '../../components/MainNav';
 
 const SignIn: React.FC = () => {
+  const { signIn } = useAuth();
+  const query = useRef(new URLSearchParams(useLocation().search));
+
+  useEffect(() => {
+    const code = query.current.get('code');
+
+    if (code) signIn(code);
+  }, [signIn]);
+
   return (
     <>
       <MainNav />
