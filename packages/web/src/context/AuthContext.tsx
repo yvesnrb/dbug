@@ -26,6 +26,7 @@ interface AuthData {
 
 interface AuthContextData {
   data: AuthData;
+  loading: boolean;
   signIn(code: string): Promise<void>;
   signOut(): void;
 }
@@ -37,6 +38,7 @@ export const AuthContext = createContext<AuthContextData>(
 export const AuthProvider: React.FC = props => {
   const { children } = props;
   // const { addToast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<AuthData>(() => {
     const user = localStorage.getItem('@dbug:user');
     const jwt = localStorage.getItem('@dbug:jwt');
@@ -51,15 +53,24 @@ export const AuthProvider: React.FC = props => {
   });
 
   const signIn = useCallback(async (code: string) => {
-    const response = await api.post<AuthData>('sessions', { code });
+    setLoading(true);
 
-    localStorage.setItem('@dbug:user', JSON.stringify(response.data.user));
-    localStorage.setItem('@dbug:jwt', response.data.jwt);
+    try {
+      const response = await api.post<AuthData>('sessions', { code });
 
-    setData({
-      user: response.data.user,
-      jwt: response.data.jwt,
-    });
+      setLoading(false);
+
+      localStorage.setItem('@dbug:user', JSON.stringify(response.data.user));
+      localStorage.setItem('@dbug:jwt', response.data.jwt);
+
+      setData({
+        user: response.data.user,
+        jwt: response.data.jwt,
+      });
+    } catch (err) {
+      // TODO add toast message for failed authentication
+      setLoading(false);
+    }
   }, []);
 
   const signOut = useCallback(() => {
@@ -93,7 +104,7 @@ export const AuthProvider: React.FC = props => {
   }, [data, signOut]);
 
   return (
-    <AuthContext.Provider value={{ data, signIn, signOut }}>
+    <AuthContext.Provider value={{ data, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
