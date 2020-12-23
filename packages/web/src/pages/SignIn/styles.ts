@@ -31,13 +31,6 @@ export const Container = styled.div`
       align-items: start;
       width: 645px;
       padding: 0 8rem 0 2rem;
-
-      #button {
-        #github {
-          margin-left: 1rem;
-          vertical-align: text-top;
-        }
-      }
     }
   }
 
