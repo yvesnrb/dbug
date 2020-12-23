@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { lighten, shade } from 'polished';
+import { Link } from 'react-router-dom';
 
 interface Props {
   $color: 'primary' | 'secondary';
@@ -53,7 +54,10 @@ const buttonVariations = {
   `,
 };
 
-export const Container = styled.button<Props>`
+export const baseStyle = css<Props>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   padding: 1rem;
   border: none;
@@ -63,6 +67,11 @@ export const Container = styled.button<Props>`
 
   .content {
     font: ${props => props.theme.buttonFont};
+
+    svg {
+      margin-left: 1rem;
+      vertical-align: text-bottom;
+    }
   }
 
   .spinner {
@@ -79,4 +88,13 @@ export const Container = styled.button<Props>`
   ${props => (props.$loading ? buttonVariations.noContent : null)}
   ${props => (props.$loading ? null : buttonVariations.noSpinner)}
   ${props => (props.disabled ? buttonVariations.disabled : null)}
+`;
+
+export const StyledButton = styled.button`
+  ${baseStyle}
+`;
+
+export const StyledLink = styled(Link)`
+  ${baseStyle}
+  text-decoration: none;
 `;
