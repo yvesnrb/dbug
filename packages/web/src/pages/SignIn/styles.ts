@@ -51,7 +51,7 @@ export const Container = styled.div`
       justify-content: center;
       align-items: flex-end;
       width: 645px;
-      padding: 0 8rem 0 2rem;
+      padding: 0 2rem 0 8rem;
 
       img {
         width: 100%;
@@ -71,7 +71,7 @@ export const Container = styled.div`
 
       #content {
         max-width: 100vw;
-        padding: 0 2rem;
+        padding: 2rem 2rem;
 
         #button {
           align-self: center;
@@ -85,7 +85,7 @@ export const Container = styled.div`
 
       #content {
         max-width: 100vw;
-        padding: 0 2rem;
+        padding: 2rem 2rem;
         align-items: center;
       }
     }
