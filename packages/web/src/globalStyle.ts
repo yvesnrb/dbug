@@ -17,4 +17,16 @@ export const GlobalStyle = createGlobalStyle<Props>`
     color: ${props => props.theme.foreground};
     background: ${props => props.theme.background};
   }
+
+  @media only screen and (max-width: ${props => props.theme.mediumBreakpoint}) {
+    * {
+      font-size: 9px;
+    }
+  }
+
+  @media only screen and (max-width: ${props => props.theme.smallBreakpoint}) {
+    * {
+      font-size: 8px;
+    }
+  }
 `;
