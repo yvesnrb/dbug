@@ -8,7 +8,7 @@ import remoteIdeationImg from '../../assets/remote-ideation.svg';
 import MainNav from '../../components/MainNav';
 
 const SignIn: React.FC = () => {
-  const { signIn } = useAuth();
+  const { signIn, loading } = useAuth();
   const query = useRef(new URLSearchParams(useLocation().search));
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const SignIn: React.FC = () => {
               href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`}
               id="button"
               color="primary"
+              loading={loading}
             >
               Sign In With GitHub <FiGithub id="github" size={18} />
             </AnchorButton>
