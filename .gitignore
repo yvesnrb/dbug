@@ -5,3 +5,4 @@ packages/web/storybook_dist
 packages/server/.eslintcache
 
 packages/server/.env.production
+packages/web/.env
