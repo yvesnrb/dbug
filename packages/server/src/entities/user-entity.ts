@@ -2,14 +2,24 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Contact from './contact-entity';
 
 @Entity('users')
 export default class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ nullable: true })
+  contact_id: string;
+
+  @OneToOne(() => Contact)
+  @JoinColumn({ name: 'contact_id' })
+  contact: Contact;
 
   @Column()
   githubId: number;
