@@ -15,7 +15,7 @@ export default class User {
   id: string;
 
   @Column({ nullable: true })
-  contact_id: string;
+  contact_id?: string;
 
   @OneToOne(() => Contact)
   @JoinColumn({ name: 'contact_id' })
