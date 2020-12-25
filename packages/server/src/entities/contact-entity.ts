@@ -12,13 +12,13 @@ export default class Contact {
   id: string;
 
   @Column({ nullable: true })
-  meet: string;
+  meet?: string;
 
   @Column({ nullable: true })
-  discord: string;
+  discord?: string;
 
   @Column({ nullable: true })
-  zoom: string;
+  zoom?: string;
 
   @CreateDateColumn()
   created_at: Date;
