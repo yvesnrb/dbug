@@ -55,6 +55,7 @@ class AuthenticateUserService {
   private async createOrUpdateUser(): Promise<void> {
     const registeredUser = await this.usersRepository.findOne({
       where: { githubId: this.githubUser.id },
+      relations: ['contact'],
     });
 
     if (registeredUser) {
