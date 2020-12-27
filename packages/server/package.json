@@ -10,6 +10,7 @@
     "dev": "tsnd --inspect --require dotenv/config --transpile-only --rs --ignore-watch node_modules ./src/server.ts"
   },
   "dependencies": {
+    "@casl/ability": "^5.1.0",
     "axios": "^0.21.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
