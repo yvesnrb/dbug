@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import 'express-async-errors';
+import { ValidationError } from 'express-validation';
 import AppError from './errors/app-error';
 import routes from './routes';
 import 'reflect-metadata';
@@ -27,6 +28,12 @@ app.use(
 
     if (err instanceof AppError)
       return response.status(err.statusCode).json({ message: err.message });
+
+    if (err instanceof ValidationError) {
+      // eslint-disable-next-line no-console
+      console.log(err.details.body);
+      return response.status(400).json({ message: 'badrequest' });
+    }
 
     return response.status(500).json({ message: 'Internal Server Error' });
   },
