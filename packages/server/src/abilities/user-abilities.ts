@@ -5,7 +5,7 @@ import User from '../entities/user-entity';
 export default (user: User): Public<Ability> =>
   defineAbility((can, cannot) => {
     if (user.contact_id) {
-      can('update', 'Contact', { id: user.contact_id });
+      can('update', 'Contact');
       cannot('create', 'Contact');
     }
 
