@@ -1,6 +1,8 @@
 import { getRepository } from 'typeorm';
 import Contact from '../entities/contact-entity';
 import User from '../entities/user-entity';
+import defineAbilitiesFor from '../abilities/user-abilities';
+import AppError from '../errors/app-error';
 
 interface Request {
   userId: string;
@@ -31,6 +33,7 @@ class CreateContactService {
 
   public async execute(): Promise<Contact> {
     await this.fetchUser();
+    this.verifyAbility();
     await this.createContact();
 
     return this.contact;
@@ -54,6 +57,13 @@ class CreateContactService {
     this.user.contact_id = this.contact.id;
 
     await this.usersRepository.save(this.user);
+  }
+
+  public verifyAbility(): void {
+    const ability = defineAbilitiesFor(this.user);
+
+    if (ability.cannot('create', 'Contact'))
+      throw new AppError('badrequest', 400);
   }
 }
 
