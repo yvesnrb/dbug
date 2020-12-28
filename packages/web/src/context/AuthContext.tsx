@@ -12,6 +12,15 @@ import api from '../services/api';
 interface AuthData {
   user: {
     id: string;
+    contact_id: string;
+    contact: {
+      id: string;
+      meet: string;
+      discord: string;
+      zoom: string;
+      created_at: string;
+      updated_at: string;
+    };
     githubId: number;
     login: string;
     avatar_url: string;
