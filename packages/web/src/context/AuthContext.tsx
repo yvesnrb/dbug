@@ -12,15 +12,8 @@ import api from '../services/api';
 interface AuthData {
   user: {
     id: string;
-    contact_id: string;
-    contact: {
-      id: string;
-      meet: string;
-      discord: string;
-      zoom: string;
-      created_at: string;
-      updated_at: string;
-    };
+    contact_id: string | null;
+    contact: Contact | null;
     githubId: number;
     login: string;
     avatar_url: string;
@@ -33,11 +26,21 @@ interface AuthData {
   jwt: string;
 }
 
+interface Contact {
+  id: string;
+  meet: string;
+  discord: string;
+  zoom: string;
+  created_at: string;
+  updated_at: string;
+}
+
 interface AuthContextData {
   data: AuthData;
   loading: boolean;
   signIn(code: string): Promise<void>;
   signOut(): void;
+  updateContact(contact: Contact): void;
 }
 
 export const AuthContext = createContext<AuthContextData>(
@@ -82,6 +85,23 @@ export const AuthProvider: React.FC = props => {
     }
   }, []);
 
+  const updateContact = useCallback(
+    (contact: Contact) => {
+      const updatedUser = { ...data.user };
+
+      updatedUser.contact_id = contact.id;
+      updatedUser.contact = contact;
+
+      localStorage.setItem('@dbug:user', JSON.stringify(updatedUser));
+
+      setData(currentData => ({
+        ...currentData,
+        user: updatedUser,
+      }));
+    },
+    [data.user],
+  );
+
   const signOut = useCallback(() => {
     localStorage.removeItem('@dbug:user');
     localStorage.removeItem('@dbug:jwt');
@@ -113,7 +133,9 @@ export const AuthProvider: React.FC = props => {
   }, [data, signOut]);
 
   return (
-    <AuthContext.Provider value={{ data, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ data, loading, signIn, signOut, updateContact }}
+    >
       {children}
     </AuthContext.Provider>
   );
