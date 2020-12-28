@@ -10,16 +10,17 @@ interface Props extends RouteProps {
 const Route: React.FC<Props> = props => {
   const { isPrivate = false, component: Component, ...rest } = props;
   const {
-    data: { jwt },
+    data: { jwt, user },
   } = useAuth();
 
   const render = useCallback(
     routeProps => {
+      if (user && !user.contact_id) return <Redirect to="/contact" />;
       if (!jwt && isPrivate) return <Redirect to="/" />;
       if (jwt && !isPrivate) return <Redirect to="/dashboard" />;
       return <Component {...routeProps} />;
     },
-    [isPrivate, jwt, Component],
+    [isPrivate, jwt, Component, user],
   );
 
   return <BaseRoute render={render} {...rest} />;
