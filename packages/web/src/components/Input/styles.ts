@@ -21,7 +21,7 @@ export const Container = styled.div<Props>`
   label {
     color: ${props => props.theme.foreground};
     font: ${props => props.theme.helpLargeFont};
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.5rem;
   }
 
   input {
@@ -45,7 +45,7 @@ export const Container = styled.div<Props>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 30rem;
+    width: 100%;
     padding: 1rem;
     background: ${props => props.theme.secondary};
     border: 1px solid ${props => props.theme.secondary};
