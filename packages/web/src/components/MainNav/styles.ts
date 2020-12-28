@@ -35,6 +35,7 @@ const containerVariations = {
 };
 
 export const Container = styled.div<Props>`
+  z-index: 100;
   background: ${props => props.theme.secondary};
   position: initial;
 
