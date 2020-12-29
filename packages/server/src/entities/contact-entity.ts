@@ -11,14 +11,14 @@ export default class Contact {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: true })
-  meet?: string;
+  @Column({ nullable: true, type: 'varchar' })
+  meet?: string | null;
 
-  @Column({ nullable: true })
-  discord?: string;
+  @Column({ nullable: true, type: 'varchar' })
+  discord?: string | null;
 
-  @Column({ nullable: true })
-  zoom?: string;
+  @Column({ nullable: true, type: 'varchar' })
+  zoom?: string | null;
 
   @CreateDateColumn()
   created_at: Date;

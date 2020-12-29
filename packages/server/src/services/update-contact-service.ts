@@ -53,9 +53,9 @@ class UpdateContactService {
   }
 
   public async updateContact(): Promise<void> {
-    this.contact.meet = this.contactInfo.meet;
-    this.contact.discord = this.contactInfo.discord;
-    this.contact.zoom = this.contactInfo.zoom;
+    this.contact.meet = this.contactInfo.meet || null;
+    this.contact.discord = this.contactInfo.discord || null;
+    this.contact.zoom = this.contactInfo.zoom || null;
 
     await this.contactsRepository.save(this.contact);
   }
