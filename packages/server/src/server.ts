@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
+import morgan from 'morgan';
 import 'express-async-errors';
 import { ValidationError } from 'express-validation';
 import AppError from './errors/app-error';
@@ -14,6 +15,9 @@ const corsOptions = {
 
 const app = express();
 
+app.use(
+  morgan(':method :url :status :res[content-length] - :response-time ms'),
+);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(routes);
@@ -23,18 +27,17 @@ app.use(
   // that hacked async error handling into express why.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (err: Error, _request: Request, response: Response, _next: NextFunction) => {
-    // eslint-disable-next-line no-console
-    console.log(err);
-
     if (err instanceof AppError)
       return response.status(err.statusCode).json({ message: err.message });
 
     if (err instanceof ValidationError) {
       // eslint-disable-next-line no-console
-      console.log(err.details.body);
+      console.error(err.details.body || 'undefined validation error');
       return response.status(400).json({ message: 'badrequest' });
     }
 
+    // eslint-disable-next-line no-console
+    console.error(err);
     return response.status(500).json({ message: 'Internal Server Error' });
   },
 );
