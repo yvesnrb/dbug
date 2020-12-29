@@ -5,6 +5,7 @@ import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
 import SignOut from '../pages/SignOut';
 import Contact from '../pages/Contact';
+import Settings from '../pages/Settings';
 
 const Routes: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Routes: React.FC = () => {
       <Route exact path="/dashboard" component={Dashboard} isPrivate />
       <Route exact path="/signout" component={SignOut} isPrivate />
       <Route exact path="/contact" component={Contact} isPrivate />
+      <Route exact path="/settings" component={Settings} isPrivate />
     </Switch>
   );
 };
