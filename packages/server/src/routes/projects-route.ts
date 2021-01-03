@@ -1,5 +1,7 @@
 import { Router } from 'express';
+import { validate } from 'express-validation';
 import authorizeTokenMiddleware from '../middleware/authorize-token-middleware';
+import { newProjectSchema } from '../schemas/project-schema';
 import CreateProjectService from '../services/create-project-service';
 
 const projectsRouter = Router();
@@ -15,6 +17,7 @@ projectsRouter.get('/:id', async (_request, response) => {
 projectsRouter.post(
   '/',
   authorizeTokenMiddleware,
+  validate({ body: newProjectSchema }),
   async (request, response) => {
     const {
       body: { body },
