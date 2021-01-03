@@ -1,14 +1,38 @@
 import { Router } from 'express';
 import { validate } from 'express-validation';
 import authorizeTokenMiddleware from '../middleware/authorize-token-middleware';
-import { newProjectSchema } from '../schemas/project-schema';
+import {
+  newProjectSchema,
+  projectQuerySchema,
+} from '../schemas/project-schema';
 import CreateProjectService from '../services/create-project-service';
+import GetProjectPageService from '../services/get-project-page-service';
 
 const projectsRouter = Router();
 
-projectsRouter.get('/', async (_request, response) => {
-  return response.json({ message: 'listing projects...' });
-});
+projectsRouter.get(
+  '/',
+  authorizeTokenMiddleware,
+  validate({ query: projectQuerySchema }, { context: true }),
+  async (request, response) => {
+    const {
+      query: { page, limit, isArchived, myOwn },
+      session: { id },
+    } = request;
+
+    const getProjectPageService = new GetProjectPageService({
+      page: Number(page),
+      limit: Number(limit),
+      isArchived: Boolean(isArchived),
+      myOwn: Boolean(myOwn),
+      userId: id,
+    });
+
+    const result = await getProjectPageService.execute();
+
+    return response.json(result);
+  },
+);
 
 projectsRouter.get('/:id', async (_request, response) => {
   return response.json({ message: 'finding project...' });
@@ -23,6 +47,7 @@ projectsRouter.post(
       body: { body },
       session: { id },
     } = request;
+
     const createProjectService = new CreateProjectService({ body, userId: id });
 
     const project = await createProjectService.execute();

@@ -11,6 +11,8 @@ export default (user: User): Promise<Public<Ability>> =>
       where: { author_id: user.id, is_archived: false },
     });
 
+    if (user.contact_id) can('list', 'Project');
+
     if (user.contact_id && activeUserProjects.length === 0)
       can('create', 'Project');
 
