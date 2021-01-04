@@ -18,6 +18,7 @@ interface ProjectsListItem {
       zoom: boolean;
     };
   };
+  hasShared: boolean;
   created_at: Date;
   updated_at: Date;
 }
@@ -98,7 +99,7 @@ export default class GetProjectPageService {
     const [results, total] = await this.projectsRepository.findAndCount({
       take: this.limit,
       skip: this.page * this.limit,
-      relations: ['author', 'author.contact'],
+      relations: ['author', 'author.contact', 'shares'],
       order: { created_at: 'DESC' },
       where: {
         is_archived: this.isArchived,
@@ -121,6 +122,7 @@ export default class GetProjectPageService {
             zoom: Boolean(project.author.contact.zoom),
           },
         },
+        hasShared: project.shares.some(share => share.id === this.userId),
         created_at: project.created_at,
         updated_at: project.updated_at,
       });
