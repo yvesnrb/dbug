@@ -80,13 +80,13 @@ export default class GetProjectPageService {
     };
   }
 
-  public async fetchUser(): Promise<void> {
+  private async fetchUser(): Promise<void> {
     this.user = await this.usersRepository.findOneOrFail({
       where: { id: this.userId },
     });
   }
 
-  public async verifyAbility(): Promise<void> {
+  private async verifyAbility(): Promise<void> {
     const abilities = await defineProjectAbilitiesFor(this.user);
 
     if (!abilities.can('list', 'Project'))
