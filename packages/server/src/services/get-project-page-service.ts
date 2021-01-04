@@ -12,6 +12,8 @@ interface ProjectsListItem {
     id: string;
     login: string;
     avatar_url: string;
+    followers: number;
+    public_repos: number;
     contact: {
       meet: boolean;
       discord: boolean;
@@ -116,6 +118,8 @@ export default class GetProjectPageService {
           id: project.author.id,
           login: project.author.login,
           avatar_url: project.author.avatar_url,
+          followers: project.author.followers,
+          public_repos: project.author.public_repos,
           contact: {
             meet: Boolean(project.author.contact.meet),
             discord: Boolean(project.author.contact.discord),
