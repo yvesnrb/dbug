@@ -11,15 +11,16 @@ export default (user: User): Promise<Public<Ability>> =>
       where: { author_id: user.id, is_archived: false },
     });
 
-    if (user.contact_id) can('list', 'Project');
+    if (user.contact_id) {
+      can('list', 'Project');
 
-    if (user.contact_id && activeUserProjects.length === 0)
-      can('create', 'Project');
+      if (activeUserProjects.length === 0) can('create', 'Project');
 
-    can('archive', 'Project', { author_id: user.id });
+      can('archive', 'Project', { author_id: user.id });
 
-    // can share a project if they do not own it and if their contact is not
-    // already on the project and if they have registered their contact
-    // information
-    // TODO
+      can('share', 'Project', {
+        author_id: { $ne: user.id },
+        'shares.id': { $ne: user.id },
+      });
+    }
   });

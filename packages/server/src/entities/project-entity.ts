@@ -3,6 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -26,6 +28,14 @@ export default class Project {
 
   @Column()
   is_archived: boolean;
+
+  @ManyToMany(() => User)
+  @JoinTable({
+    name: 'projects_shares_users',
+    joinColumn: { name: 'project_id' },
+    inverseJoinColumn: { name: 'user_id' },
+  })
+  shares: User[];
 
   @CreateDateColumn()
   created_at: Date;

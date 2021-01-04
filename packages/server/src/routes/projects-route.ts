@@ -3,12 +3,13 @@ import { validate } from 'express-validation';
 import authorizeTokenMiddleware from '../middleware/authorize-token-middleware';
 import {
   newProjectSchema,
-  projectArchivalSchema,
+  projectIdSchema,
   projectQuerySchema,
 } from '../schemas/project-schema';
 import ArchiveProjectService from '../services/archive-project-service';
 import CreateProjectService from '../services/create-project-service';
 import GetProjectPageService from '../services/get-project-page-service';
+import ShareProjectService from '../services/share-project-service';
 
 const projectsRouter = Router();
 
@@ -58,9 +59,26 @@ projectsRouter.post(
   },
 );
 
-projectsRouter.post('/:id/share', async (_request, response) => {
-  return response.json({ message: 'sharing with project...' });
-});
+projectsRouter.post(
+  '/:id/share',
+  authorizeTokenMiddleware,
+  validate({ params: projectIdSchema }),
+  async (request, response) => {
+    const {
+      params: { id },
+      session: { id: userId },
+    } = request;
+
+    const shareProjectService = new ShareProjectService({
+      projectId: id,
+      userId,
+    });
+
+    const project = await shareProjectService.execute();
+
+    return response.json(project);
+  },
+);
 
 projectsRouter.post('/:id/select/:userid', async (_request, response) => {
   return response.json({ message: 'selecting candidate for project...' });
@@ -69,7 +87,7 @@ projectsRouter.post('/:id/select/:userid', async (_request, response) => {
 projectsRouter.delete(
   '/:id',
   authorizeTokenMiddleware,
-  validate({ params: projectArchivalSchema }),
+  validate({ params: projectIdSchema }),
   async (request, response) => {
     const {
       params: { id },

@@ -11,6 +11,6 @@ export const projectQuerySchema = Joi.object({
   myOwn: Joi.boolean().default(false),
 });
 
-export const projectArchivalSchema = Joi.object({
+export const projectIdSchema = Joi.object({
   id: Joi.string().uuid({ version: 'uuidv4' }),
 });
