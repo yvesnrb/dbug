@@ -3,8 +3,10 @@ import { validate } from 'express-validation';
 import authorizeTokenMiddleware from '../middleware/authorize-token-middleware';
 import {
   newProjectSchema,
+  projectArchivalSchema,
   projectQuerySchema,
 } from '../schemas/project-schema';
+import ArchiveProjectService from '../services/archive-project-service';
 import CreateProjectService from '../services/create-project-service';
 import GetProjectPageService from '../services/get-project-page-service';
 
@@ -64,8 +66,25 @@ projectsRouter.post('/:id/select/:userid', async (_request, response) => {
   return response.json({ message: 'selecting candidate for project...' });
 });
 
-projectsRouter.delete('/:id', async (_request, response) => {
-  return response.json({ message: 'removing project...' });
-});
+projectsRouter.delete(
+  '/:id',
+  authorizeTokenMiddleware,
+  validate({ params: projectArchivalSchema }),
+  async (request, response) => {
+    const {
+      params: { id },
+      session: { id: userId },
+    } = request;
+
+    const archiveProjectService = new ArchiveProjectService({
+      id,
+      userId,
+    });
+
+    const project = await archiveProjectService.execute();
+
+    return response.json(project);
+  },
+);
 
 export default projectsRouter;

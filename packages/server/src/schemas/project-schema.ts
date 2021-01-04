@@ -10,3 +10,7 @@ export const projectQuerySchema = Joi.object({
   isArchived: Joi.boolean().default(false),
   myOwn: Joi.boolean().default(false),
 });
+
+export const projectArchivalSchema = Joi.object({
+  id: Joi.string().uuid({ version: 'uuidv4' }),
+});
