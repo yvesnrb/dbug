@@ -14,6 +14,11 @@ export default (user: User): Promise<Public<Ability>> =>
     if (user.contact_id) {
       can('list', 'Project');
 
+      can('get', 'Project', {
+        author_id: user.id,
+        is_archived: { $eq: false },
+      });
+
       if (activeUserProjects.length === 0) can('create', 'Project');
 
       can('archive', 'Project', { author_id: user.id });

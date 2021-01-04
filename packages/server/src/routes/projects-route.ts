@@ -9,6 +9,7 @@ import {
 import ArchiveProjectService from '../services/archive-project-service';
 import CreateProjectService from '../services/create-project-service';
 import GetProjectPageService from '../services/get-project-page-service';
+import GetProjectService from '../services/get-project-service';
 import ShareProjectService from '../services/share-project-service';
 
 const projectsRouter = Router();
@@ -37,9 +38,26 @@ projectsRouter.get(
   },
 );
 
-projectsRouter.get('/:id', async (_request, response) => {
-  return response.json({ message: 'finding project...' });
-});
+projectsRouter.get(
+  '/:id',
+  authorizeTokenMiddleware,
+  validate({ query: projectIdSchema }),
+  async (request, response) => {
+    const {
+      params: { id },
+      session: { id: userId },
+    } = request;
+
+    const getProjectService = new GetProjectService({
+      projectId: id,
+      userId,
+    });
+
+    const project = await getProjectService.execute();
+
+    return response.json(project);
+  },
+);
 
 projectsRouter.post(
   '/',
