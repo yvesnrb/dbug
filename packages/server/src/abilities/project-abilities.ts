@@ -21,6 +21,7 @@ export default (user: User): Promise<Public<Ability>> =>
       can('share', 'Project', {
         author_id: { $ne: user.id },
         'shares.id': { $ne: user.id },
+        is_archived: { $eq: false },
       });
     }
   });
