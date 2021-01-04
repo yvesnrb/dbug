@@ -17,6 +17,8 @@ interface Response {
     id: string;
     login: string;
     avatar_url: string;
+    followers: number;
+    public_repos: number;
     contact: {
       meet: boolean;
       discord: boolean;
@@ -60,6 +62,8 @@ export default class ShareProjectService {
         id: this.project.author.id,
         login: this.project.author.login,
         avatar_url: this.project.author.avatar_url,
+        followers: this.project.author.followers,
+        public_repos: this.project.author.public_repos,
         contact: {
           meet: Boolean(this.project.author.contact.meet),
           discord: Boolean(this.project.author.contact.discord),
