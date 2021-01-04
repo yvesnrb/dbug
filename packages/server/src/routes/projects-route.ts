@@ -10,6 +10,7 @@ import ArchiveProjectService from '../services/archive-project-service';
 import CreateProjectService from '../services/create-project-service';
 import GetProjectPageService from '../services/get-project-page-service';
 import GetProjectService from '../services/get-project-service';
+import SelectProjectService from '../services/select-project-service';
 import ShareProjectService from '../services/share-project-service';
 
 const projectsRouter = Router();
@@ -98,9 +99,32 @@ projectsRouter.post(
   },
 );
 
-projectsRouter.post('/:id/select/:userid', async (_request, response) => {
-  return response.json({ message: 'selecting candidate for project...' });
-});
+projectsRouter.post(
+  '/:id/select/:shareId',
+  authorizeTokenMiddleware,
+  async (request, response) => {
+    const {
+      params: { id, shareId },
+      session: { id: userId },
+    } = request;
+
+    const selectProjectService = new SelectProjectService({
+      userId,
+      shareId,
+      projectId: id,
+    });
+
+    const archiveProjectService = new ArchiveProjectService({
+      id,
+      userId,
+    });
+
+    const share = await selectProjectService.execute();
+    await archiveProjectService.execute();
+
+    return response.json(share);
+  },
+);
 
 projectsRouter.delete(
   '/:id',
