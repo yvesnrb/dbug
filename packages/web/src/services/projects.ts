@@ -21,6 +21,15 @@ export interface Project {
   updated_at: Date;
 }
 
+export interface NewProject {
+  id: string;
+  body: string;
+  is_archived: boolean;
+  hasShared: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
+
 export interface ProjectPage {
   projects: Project[];
   page: number;
@@ -58,6 +67,23 @@ export async function shareProject(id: string, jwt: string): Promise<Project> {
   const response = await api.post<Project>(
     `projects/${id}/share`,
     {},
+    {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    },
+  );
+
+  return response.data;
+}
+
+export async function createProject(
+  body: string,
+  jwt: string,
+): Promise<NewProject> {
+  const response = await api.post<NewProject>(
+    '/projects',
+    { body },
     {
       headers: {
         Authorization: `Bearer ${jwt}`,

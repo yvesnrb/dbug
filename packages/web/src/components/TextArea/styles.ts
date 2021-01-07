@@ -11,6 +11,12 @@ const containerVariations = {
     textarea {
       border-color: ${props => props.theme.danger};
     }
+
+    .label {
+      p {
+        color: ${props => props.theme.danger};
+      }
+    }
   `,
 };
 
@@ -20,7 +26,7 @@ export const Container = styled.div<Props>`
 
   textarea {
     resize: none;
-    width: 31rem;
+    width: 100%;
     height: 29rem;
     padding: 1rem;
     font: ${props => props.theme.copySmallFont};

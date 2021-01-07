@@ -11,7 +11,9 @@ import {
   useQueryClient,
 } from 'react-query';
 import {
+  createProject,
   getProjects,
+  NewProject,
   Project,
   ProjectPage,
   shareProject,
@@ -25,6 +27,7 @@ interface Response {
   list: InfiniteQueryObserverResult<ProjectPage, AxiosError>;
   ownList: QueryObserverResult<ProjectPage, AxiosError>;
   share: UseMutationResult<Project, unknown, ShareRequest, unknown>;
+  create: UseMutationResult<NewProject, unknown, string, unknown>;
 }
 
 interface ShareRequest {
@@ -89,5 +92,7 @@ export const useProject = (request: Request): Response => {
     },
   );
 
-  return { list, ownList, share };
+  const create = useMutation((body: string) => createProject(body, jwt));
+
+  return { list, ownList, share, create };
 };
