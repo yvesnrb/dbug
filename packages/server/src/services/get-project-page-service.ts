@@ -98,7 +98,8 @@ export default class GetProjectPageService {
   private async fetchPage(): Promise<void> {
     const projects: ProjectsListItem[] = [];
 
-    const [results, total] = await this.projectsRepository.findAndCount({
+    // eslint-disable-next-line prefer-const
+    let [results, total] = await this.projectsRepository.findAndCount({
       take: this.limit,
       skip: this.page * this.limit,
       relations: ['author', 'author.contact', 'shares'],
@@ -108,6 +109,8 @@ export default class GetProjectPageService {
         ...(this.myOwn && { author_id: this.userId }),
       },
     });
+
+    results.sort(project => (project.author_id === this.userId ? -1 : 1));
 
     results.forEach(project => {
       projects.push({
