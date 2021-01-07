@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Redirect, Route as BaseRoute, RouteProps } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 interface Props extends RouteProps {
   isPrivate?: boolean;
@@ -9,9 +9,8 @@ interface Props extends RouteProps {
 
 const Route: React.FC<Props> = props => {
   const { isPrivate = false, component: Component, ...rest } = props;
-  const {
-    data: { jwt },
-  } = useAuth();
+  const { data } = useAuth();
+  const { jwt } = data;
 
   const render = useCallback(
     routeProps => {

@@ -8,7 +8,7 @@ import TwoPaneContainer from '../../components/TwoPaneContainer';
 import { Container } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 
 interface FormValues {
   meet?: string;
@@ -20,10 +20,8 @@ interface FormValues {
 type FormKeys = 'meet' | 'discord' | 'zoom' | 'minOne';
 
 const Contact: React.FC = () => {
-  const {
-    data: { jwt, user },
-    updateContact,
-  } = useAuth();
+  const { data, updateContact } = useAuth();
+  const { jwt, user } = data;
   const [loading, setLoading] = useState(false);
 
   const formInitialValues = {
@@ -58,13 +56,13 @@ const Contact: React.FC = () => {
       });
 
       setLoading(true);
-      const { data } = await api.post('/contacts', contact, {
+      const request = await api.post('/contacts', contact, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
       });
       setLoading(false);
-      updateContact(data);
+      updateContact(request.data);
     },
     [jwt, updateContact],
   );

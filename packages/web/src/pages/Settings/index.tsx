@@ -7,7 +7,7 @@ import TwoPaneContainer from '../../components/TwoPaneContainer';
 import { Container } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 
 interface FormValues {
   meet?: string;

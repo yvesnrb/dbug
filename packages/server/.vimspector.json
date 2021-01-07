@@ -1,0 +1,21 @@
+{
+  "configurations": {
+    "debug-server": {
+      "adapter": "vscode-node",
+      "configuration": {
+        "request": "attach",
+        "sourceMaps": true,
+        "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+        "smartStep": true,
+        "skipFiles": [
+          "${workspaceFolder}/node_modules/**/*.js",
+          "_vimspector_tmp/<node_internals>/**/*.js",
+          "_vimspector_tmp/**/*.js",
+          "<node_internals>/**/*.js"
+        ],
+        "protocol": "auto",
+        "port": 9229
+      }
+    }
+  }
+}

@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import jsonwebtoken from 'jsonwebtoken';
 import api from '../services/api';
-// import { useToast } from './ToastContext';
 
 interface AuthData {
   user: {
@@ -49,7 +48,6 @@ export const AuthContext = createContext<AuthContextData>(
 
 export const AuthProvider: React.FC = props => {
   const { children } = props;
-  // const { addToast } = useToast();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<AuthData>(() => {
     const user = localStorage.getItem('@dbug:user');
@@ -80,7 +78,6 @@ export const AuthProvider: React.FC = props => {
         jwt: response.data.jwt,
       });
     } catch (err) {
-      // TODO add toast message for failed authentication
       setLoading(false);
     }
   }, []);
@@ -118,12 +115,6 @@ export const AuthProvider: React.FC = props => {
 
       const timeout = setTimeout(() => {
         signOut();
-
-        // addToast({
-        //   type: 'info',
-        //   title: 'Attention',
-        //   description: 'Your session has expired, please sign in again.',
-        // });
       }, expDate - now);
 
       return () => clearTimeout(timeout);

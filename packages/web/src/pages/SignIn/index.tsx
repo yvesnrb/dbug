@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { FiGithub } from 'react-icons/fi';
 import { AnchorButton } from '../../components/Button';
 import { Container } from './styles';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import remoteIdeationImg from '../../assets/remote-ideation.svg';
 import MainNav from '../../components/MainNav';
 
