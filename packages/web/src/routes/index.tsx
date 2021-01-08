@@ -7,6 +7,7 @@ import SignOut from '../pages/SignOut';
 import Contact from '../pages/Contact';
 import Settings from '../pages/Settings';
 import NewProject from '../pages/NewProject';
+import Project from '../pages/Project';
 
 const Routes: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const Routes: React.FC = () => {
       <Route exact path="/contact" component={Contact} isPrivate />
       <Route exact path="/settings" component={Settings} isPrivate />
       <Route exact path="/newproject" component={NewProject} isPrivate />
+      <Route exact path="/project/:id" component={Project} isPrivate />
     </Switch>
   );
 };

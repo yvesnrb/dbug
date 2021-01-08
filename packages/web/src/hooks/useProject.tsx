@@ -11,7 +11,10 @@ import {
   useQueryClient,
 } from 'react-query';
 import {
+  closeProject,
   createProject,
+  FullProject,
+  getProject,
   getProjects,
   NewProject,
   Project,
@@ -19,24 +22,71 @@ import {
   shareProject,
 } from '../services/projects';
 
-interface Request {
-  jwt: string;
-}
-
-interface Response {
-  list: InfiniteQueryObserverResult<ProjectPage, AxiosError>;
-  ownList: QueryObserverResult<ProjectPage, AxiosError>;
-  share: UseMutationResult<Project, unknown, ShareRequest, unknown>;
-  create: UseMutationResult<NewProject, unknown, string, unknown>;
-}
-
 interface ShareRequest {
   id: string;
   page: number;
 }
 
-export const useProject = (request: Request): Response => {
-  const { jwt } = request;
+export const useProjectList = (
+  jwt: string,
+): InfiniteQueryObserverResult<ProjectPage, AxiosError> => {
+  const handleNextPageParam = useCallback((lastPage: ProjectPage) => {
+    const totalPages = Math.ceil(lastPage.total / lastPage.limit);
+    const nextPage = lastPage.page + 1;
+
+    if (nextPage < totalPages) return nextPage;
+    return undefined;
+  }, []);
+
+  const list = useInfiniteQuery<ProjectPage, AxiosError>(
+    'projects',
+    ({ pageParam }) => getProjects({ jwt, page: pageParam, limit: 5 }),
+    {
+      getNextPageParam: handleNextPageParam,
+      retry: 5,
+      retryDelay: attempt => attempt * 1000,
+    },
+  );
+
+  return list;
+};
+
+export const useOwnProjectList = (
+  jwt: string,
+): QueryObserverResult<ProjectPage, AxiosError> => {
+  const ownList = useQuery<ProjectPage, AxiosError>(
+    'ownProjects',
+    () => getProjects({ jwt, myOwn: true }),
+    {
+      retry: 5,
+      retryDelay: attempt => attempt * 1000,
+    },
+  );
+
+  return ownList;
+};
+
+export const useGetProject = (
+  jwt: string,
+  id: string,
+): QueryObserverResult<FullProject, AxiosError> => {
+  const get = useQuery<FullProject, AxiosError>(
+    'project',
+    () => getProject(id, jwt),
+    {
+      retry: 5,
+      retryDelay: attempt => attempt * 1000,
+      refetchInterval: 10000,
+      refetchIntervalInBackground: true,
+    },
+  );
+
+  return get;
+};
+
+export const useShareProject = (
+  jwt: string,
+): UseMutationResult<Project, unknown, ShareRequest, unknown> => {
   const queryClient = useQueryClient();
 
   const handleProjectUpdate = useCallback(
@@ -65,26 +115,6 @@ export const useProject = (request: Request): Response => {
     [queryClient],
   );
 
-  const handleNextPageParam = useCallback((lastPage: ProjectPage) => {
-    const totalPages = Math.ceil(lastPage.total / lastPage.limit);
-    const nextPage = lastPage.page + 1;
-
-    if (nextPage < totalPages) return nextPage;
-    return undefined;
-  }, []);
-
-  const list = useInfiniteQuery<ProjectPage, AxiosError>(
-    'projects',
-    ({ pageParam }) => getProjects({ jwt, page: pageParam, limit: 5 }),
-    {
-      getNextPageParam: handleNextPageParam,
-    },
-  );
-
-  const ownList = useQuery<ProjectPage, AxiosError>('ownProjects', () =>
-    getProjects({ jwt, myOwn: true }),
-  );
-
   const share = useMutation(
     (shareRequest: ShareRequest) => shareProject(shareRequest.id, jwt),
     {
@@ -92,7 +122,21 @@ export const useProject = (request: Request): Response => {
     },
   );
 
+  return share;
+};
+
+export const useCreateProject = (
+  jwt: string,
+): UseMutationResult<NewProject, unknown, string, unknown> => {
   const create = useMutation((body: string) => createProject(body, jwt));
 
-  return { list, ownList, share, create };
+  return create;
+};
+
+export const useCloseProject = (
+  jwt: string,
+): UseMutationResult<NewProject, unknown, string, unknown> => {
+  const close = useMutation((id: string) => closeProject(id, jwt));
+
+  return close;
 };

@@ -7,14 +7,14 @@ import MainNav from '../../components/MainNav';
 import TextArea from '../../components/TextArea';
 import TwoPaneContainer from '../../components/TwoPaneContainer';
 import { useAuth } from '../../hooks/useAuth';
-import { useProject } from '../../hooks/useProject';
+import { useCreateProject } from '../../hooks/useProject';
 import { Container, MessageContainer } from './styles';
 import bugSpottingImg from '../../assets/bug-spotting.svg';
 
 const NewProject: React.FC = () => {
   const { data } = useAuth();
   const { jwt } = data;
-  const { create } = useProject({ jwt });
+  const create = useCreateProject(jwt);
 
   return (
     <>

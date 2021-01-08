@@ -16,6 +16,7 @@ interface Response {
   avatar_url: string;
   followers: number;
   public_repos: number;
+  bio: string;
   contact: {
     meet?: string | null;
     discord?: string | null;
@@ -58,6 +59,7 @@ export default class SelectProjectService {
       avatar_url: this.share.avatar_url,
       followers: this.share.followers,
       public_repos: this.share.public_repos,
+      bio: this.share.bio,
       contact: {
         meet: this.share.contact.meet,
         discord: this.share.contact.discord,

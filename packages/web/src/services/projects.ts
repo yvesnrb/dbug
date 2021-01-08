@@ -30,6 +30,42 @@ export interface NewProject {
   updated_at: Date;
 }
 
+export interface FullProject {
+  id: string;
+  body: string;
+  is_archived: boolean;
+  author: {
+    id: string;
+    login: string;
+    avatar_url: string;
+    followers: number;
+    public_repos: number;
+    contact: {
+      meet: boolean;
+      discord: boolean;
+      zoom: boolean;
+    };
+  };
+  hasShared: boolean;
+  shares: Share[];
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface Share {
+  id: string;
+  login: string;
+  avatar_url: string;
+  followers: number;
+  public_repos: number;
+  bio: string;
+  contact: {
+    meet: boolean;
+    discord: boolean;
+    zoom: boolean;
+  };
+}
+
 export interface ProjectPage {
   projects: Project[];
   page: number;
@@ -63,6 +99,19 @@ export async function getProjects(data: Request): Promise<ProjectPage> {
   return response.data;
 }
 
+export async function getProject(
+  id: string,
+  jwt: string,
+): Promise<FullProject> {
+  const response = await api.get<FullProject>(`/projects/${id}`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function shareProject(id: string, jwt: string): Promise<Project> {
   const response = await api.post<Project>(
     `projects/${id}/share`,
@@ -90,6 +139,19 @@ export async function createProject(
       },
     },
   );
+
+  return response.data;
+}
+
+export async function closeProject(
+  id: string,
+  jwt: string,
+): Promise<NewProject> {
+  const response = await api.delete<NewProject>(`/projects/${id}`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
 
   return response.data;
 }

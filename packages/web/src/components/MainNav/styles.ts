@@ -78,8 +78,8 @@ export const Container = styled.div<Props>`
   ${props => (props.$noBackground ? containerVariations.noBackground : null)}
 
   @media only screen and (max-width: ${props => props.theme.smallBreakpoint}) {
-    background: ${props => transparentize(0.1, props.theme.secondary)};
-    backdrop-filter: blur(20px);
+    background: ${props => transparentize(0.3, props.theme.secondary)};
+    backdrop-filter: blur(10px);
     margin-bottom: 0;
     position: fixed;
     width: 100vw;

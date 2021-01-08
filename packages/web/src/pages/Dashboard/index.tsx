@@ -21,7 +21,11 @@ import {
   MessageContainer,
   ShareButton,
 } from './styles';
-import { useProject } from '../../hooks/useProject';
+import {
+  useOwnProjectList,
+  useProjectList,
+  useShareProject,
+} from '../../hooks/useProject';
 import lonelyFoxImg from '../../assets/lonely-fox.svg';
 import bugSpottingImg from '../../assets/bug-spotting.svg';
 
@@ -29,8 +33,15 @@ const Dashboard: React.FC = () => {
   const { data } = useAuth();
   const { jwt, user } = data;
   const { ref, inView } = useInView({ threshold: 1 });
-  const { list, ownList, share } = useProject({ jwt });
+  const share = useShareProject(jwt);
+  const ownList = useOwnProjectList(jwt);
+  const list = useProjectList(jwt);
   const { fetchNextPage } = list;
+  const { refetch: refetchOwnList } = ownList;
+
+  useEffect(() => {
+    refetchOwnList();
+  }, [refetchOwnList]);
 
   useEffect(() => {
     if (inView) fetchNextPage();

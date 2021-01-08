@@ -10,6 +10,7 @@ interface Share {
   avatar_url: string;
   followers: number;
   public_repos: number;
+  bio: string;
   contact: {
     meet: boolean;
     discord: boolean;
@@ -118,6 +119,7 @@ export default class GetProjectService {
       avatar_url: share.avatar_url,
       followers: share.followers,
       public_repos: share.public_repos,
+      bio: share.bio,
       contact: {
         meet: Boolean(share.contact.meet),
         discord: Boolean(share.contact.discord),
