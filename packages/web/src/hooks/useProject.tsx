@@ -12,6 +12,7 @@ import {
 } from 'react-query';
 import {
   closeProject,
+  Contact,
   createProject,
   FullProject,
   getProject,
@@ -19,6 +20,7 @@ import {
   NewProject,
   Project,
   ProjectPage,
+  selectProject,
   shareProject,
 } from '../services/projects';
 
@@ -139,4 +141,19 @@ export const useCloseProject = (
   const close = useMutation((id: string) => closeProject(id, jwt));
 
   return close;
+};
+
+export const useSelectProject = (
+  jwt: string,
+): UseMutationResult<
+  Contact,
+  unknown,
+  { projectId: string; userId: string },
+  unknown
+> => {
+  const select = useMutation((data: { projectId: string; userId: string }) =>
+    selectProject(data.projectId, data.userId, jwt),
+  );
+
+  return select;
 };

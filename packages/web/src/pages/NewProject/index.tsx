@@ -64,7 +64,7 @@ const NewProject: React.FC = () => {
                     color="primary"
                     small
                   >
-                    Let&apos;s Go!
+                    Post Project
                   </Button>
                 </form>
               )}

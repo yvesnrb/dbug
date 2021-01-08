@@ -28,6 +28,7 @@ const badgeVariations = {
 
 export const Container = styled.span<Props>`
   background: ${props => props.$color};
+  min-height: 2rem;
   color: ${props => props.theme.foreground};
   padding: 0.4rem 0.8rem;
   border-radius: 2rem;

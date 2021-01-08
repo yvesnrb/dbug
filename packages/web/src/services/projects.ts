@@ -66,6 +66,20 @@ export interface Share {
   };
 }
 
+export interface Contact {
+  id: string;
+  login: string;
+  avatar_url: string;
+  followers: number;
+  public_repos: number;
+  bio: string;
+  contact: {
+    meet: string | null;
+    discord: string | null;
+    zoom: string | null;
+  };
+}
+
 export interface ProjectPage {
   projects: Project[];
   page: number;
@@ -152,6 +166,24 @@ export async function closeProject(
       Authorization: `Bearer ${jwt}`,
     },
   });
+
+  return response.data;
+}
+
+export async function selectProject(
+  projectId: string,
+  userId: string,
+  jwt: string,
+): Promise<Contact> {
+  const response = await api.post<Contact>(
+    `/projects/${projectId}/select/${userId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    },
+  );
 
   return response.data;
 }

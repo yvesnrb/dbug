@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle<Props>`
     box-sizing: border-box;
     font-size: 10px;
     font-family: Roboto, sans-serif;
+    word-break: break-word;
   }
 
   body {

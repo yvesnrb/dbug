@@ -8,6 +8,7 @@ import Contact from '../pages/Contact';
 import Settings from '../pages/Settings';
 import NewProject from '../pages/NewProject';
 import Project from '../pages/Project';
+import Select from '../pages/Select';
 
 const Routes: React.FC = () => {
   return (
@@ -19,6 +20,12 @@ const Routes: React.FC = () => {
       <Route exact path="/settings" component={Settings} isPrivate />
       <Route exact path="/newproject" component={NewProject} isPrivate />
       <Route exact path="/project/:id" component={Project} isPrivate />
+      <Route
+        exact
+        path="/project/:projectId/select/:userId"
+        component={Select}
+        isPrivate
+      />
     </Switch>
   );
 };
