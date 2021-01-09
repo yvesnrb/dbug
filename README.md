@@ -59,6 +59,7 @@ these comands to start the application:
 
 ```
 yarn
+yarn workspace @dbug/server typeorm migrations:run
 yarn workspace @dbug/web start
 yarn workspace @dbug/server dev
 ```
