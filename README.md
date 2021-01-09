@@ -9,7 +9,7 @@ program using your favorite communication platforms.
 ## Features
 
 ### Filling in Contact Information
-<img align="center" src="videos/selecting-contact.gif" width="100%" />
+<img align="center" src="videos/contact-change.gif" width="100%" />
 <br clear="both" />
 It is required to have at least one of any contact information available (meet,
 discord or zoom). This information is not public and only gets sent to the
@@ -39,13 +39,14 @@ made available by that user. This will also close that project.
 
 ### Digital Ocean Deployment
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/yvesnrb/dbug/tree/master)
+<br clear="both" />
 The easiest way to get started with dbug is to use Digital Ocean's app platform,
 click the above button and fill out the appropriate environment variables to get
 started. This will deploy a web server, the static site and a database for you
 with minimal effort.
 
 ### Application Requirements
-you will need NodeJS v12.x.x, Yarn and a PostgreSQL database to run this
+You will need NodeJS v12.x.x, Yarn and a PostgreSQL database to run this
 application.
 
 ### Environment Variables
@@ -53,9 +54,8 @@ The necessary environment variables to configure the server and web packages of
 this application are listed in the README.md files of each package.
 
 ### Dev Environment
-For a local environment, you will need NodeJS v12.x.x, Yarn and a PostgreSQL
-database. After configuring the apropriate environment variables for each package
-use these comands to get started:
+After configuring the apropriate environment variables for each package use
+these comands to start the application:
 
 ```
 yarn
