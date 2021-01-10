@@ -2,7 +2,7 @@ spec:
   name: dbug
   databases:
     - name: dbug-database
-      engine: pg
+      engine: PG
       production: false
   services:
     - name: server
