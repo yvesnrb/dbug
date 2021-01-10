@@ -3,6 +3,7 @@ spec:
   databases:
     - name: dbug-database
       engine: pg
+      production: false
   services:
     - name: server
       routes:
@@ -10,65 +11,66 @@ spec:
       github:
         repo: yvesnrb/dbug
         branch: master
-    build_command: "yarn workspace @dbug/server build"
-    run_command: "yarn workspace @dbug/server typeorm migration:run && yarn workspace @dbug/server start"
-    envs:
-      - key: APP_PORT
-        value: 8080
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: GITHUB_CLIENT_ID
-        value: "Fill with your GitHub client ID"
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: GITHUB_CLIENT_SECRET
-        value: "Fill with your GitHub client secret"
-        scope: RUN_AND_BUILD_TIME
-        type: SECRET
-      - key: TYPEORM_CONNECTION
-        value: postgres
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: TYPEORM_HOST
-        value: ${dbug-database.HOSTNAME}
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: TYPEORM_PORT
-        value: ${dbug-database.PORT}
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: TYPEORM_USERNAME
-        value: ${dbug-database.USERNAME}
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: TYPEORM_PASSWORD
-        value: ${dbug-database.PASSWORD}
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: TYPEORM_DATABASE
-        value: ${dbug-database.DATABASE}
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: TYPEORM_MIGRATIONS
-        value: "dist/database/migrations/*.js"
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: TYPEORM_ENTITIES
-        value: "dist/entities/*.js"
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: JWT_KEY
-        value: "Please choose a very long and very random string for this value"
-        scope: RUN_AND_BUILD_TIME
-        type: SECRET
-      - key: JWT_EXP
-        value: "1h"
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: CORS_ORIGIN
-        value: ${web.PUBLIC_URL}
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
+        deploy_on_push: true
+      build_command: "yarn workspace @dbug/server build"
+      run_command: "yarn workspace @dbug/server typeorm migration:run && yarn workspace @dbug/server start"
+      envs:
+        - key: APP_PORT
+          value: 8080
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: GITHUB_CLIENT_ID
+          value: "Fill with your GitHub client ID"
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: GITHUB_CLIENT_SECRET
+          value: "Fill with your GitHub client secret"
+          scope: RUN_AND_BUILD_TIME
+          type: SECRET
+        - key: TYPEORM_CONNECTION
+          value: postgres
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: TYPEORM_HOST
+          value: ${dbug-database.HOSTNAME}
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: TYPEORM_PORT
+          value: ${dbug-database.PORT}
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: TYPEORM_USERNAME
+          value: ${dbug-database.USERNAME}
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: TYPEORM_PASSWORD
+          value: ${dbug-database.PASSWORD}
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: TYPEORM_DATABASE
+          value: ${dbug-database.DATABASE}
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: TYPEORM_MIGRATIONS
+          value: "dist/database/migrations/*.js"
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: TYPEORM_ENTITIES
+          value: "dist/entities/*.js"
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: JWT_KEY
+          value: "Please choose a very long and very random string for this value"
+          scope: RUN_AND_BUILD_TIME
+          type: SECRET
+        - key: JWT_EXP
+          value: "1h"
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: CORS_ORIGIN
+          value: ${web.PUBLIC_URL}
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
   static_sites:
     - name: web
       routes:
@@ -76,15 +78,16 @@ spec:
       github:
         repo: yvesnrb/dbug
         branch: master
-    build_command: "yarn workspace @dbug/web build"
-    source_dir: "packages/web/build"
-    catchall_document: "index.html"
-    envs:
-      - key: REACT_APP_GITHUB_CLIENT_ID
-        value: "Please fill with the same client ID you've entered for the server"
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
-      - key: REACT_APP_SERVER_URL
-        value: ${server.PUBLIC_URL}
-        scope: RUN_AND_BUILD_TIME
-        type: GENERAL
+        deploy_on_push: true
+      build_command: "yarn workspace @dbug/web build"
+      source_dir: "packages/web/build"
+      catchall_document: "index.html"
+      envs:
+        - key: REACT_APP_GITHUB_CLIENT_ID
+          value: "Please fill with the same client ID you've entered for the server"
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+        - key: REACT_APP_SERVER_URL
+          value: ${server.PUBLIC_URL}
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
