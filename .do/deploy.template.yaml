@@ -1,5 +1,8 @@
 spec:
   name: dbug
+  databases:
+    - name: dbug-database
+      engine: pg
   services:
     - name: server
       routes:
@@ -8,9 +11,6 @@ spec:
         repo: yvesnrb/dbug
         branch: master
         deploy_on_push: true
-    databases:
-      - name: dbug-database
-        engine: pg
     build_command: "yarn workspace @dbug/server build"
     run_command: "yarn workspace @dbug/server typeorm migration:run && yarn workspace @dbug/server start"
     envs:
@@ -70,6 +70,7 @@ spec:
         value: ${web.PUBLIC_URL}
         scope: RUN_AND_BUILD_TIME
         type: GENERAL
+  static_sites:
     - name: web
       routes:
         - path: "/"
