@@ -52,6 +52,9 @@ application.
 ### Environment Variables
 The necessary environment variables to configure the server and web packages of
 this application are listed in the README.md files of each package.
+[Web README](packages/web/README.md)
+<br clear="both" />
+[Server README](packages/server/README.md)
 
 ### Dev Environment
 After configuring the apropriate environment variables for each package use
@@ -62,4 +65,11 @@ yarn
 yarn workspace @dbug/server typeorm migrations:run
 yarn workspace @dbug/web start
 yarn workspace @dbug/server dev
+```
+
+### Building the Application
+You can build this application using the following commands:
+```
+yarn workspace @dbug/web build
+yarn workspace @dbug/server build
 ```
