@@ -52,6 +52,7 @@ application.
 ### Environment Variables
 The necessary environment variables to configure the server and web packages of
 this application are listed in the README.md files of each package.
+<br clear="both" />
 [Web README](packages/web/README.md)
 <br clear="both" />
 [Server README](packages/server/README.md)
