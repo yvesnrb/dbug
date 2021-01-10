@@ -42,12 +42,15 @@ made available by that user. This will also close that project.
 <br clear="both" />
 The easiest way to get started with dbug is to use Digital Ocean's app platform,
 click the above button and fill out the appropriate environment variables to get
-started. This will deploy a web server, the static site and a database for you
-with minimal effort.
+started. This will deploy a web server and a database for you with minimal
+effort. Unfortunatly, it currently does not allow for deploying the static site
+on the same go, but you can add it from the digital ocean interface with minimal
+effort.
 
 ### Application Requirements
 You will need NodeJS v12.x.x, Yarn and a PostgreSQL database to run this
-application.
+application. You will also need a GitHub OAuth key pair, with the callback url
+set to the root url of the front-end of your application.
 
 ### Environment Variables
 The necessary environment variables to configure the server and web packages of
