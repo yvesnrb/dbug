@@ -16,7 +16,7 @@ spec:
       run_command: "yarn workspace @dbug/server typeorm migration:run && yarn workspace @dbug/server start"
       envs:
         - key: APP_PORT
-          value: 8080
+          value: "8080"
           scope: RUN_AND_BUILD_TIME
           type: GENERAL
         - key: GITHUB_CLIENT_ID
